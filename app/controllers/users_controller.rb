@@ -24,6 +24,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def following
+    @users = User.find(params[:id]).following.where.not(id: current_user.id)
+  end
+
+  def followers
+    @users = User.find(params[:id]).followers.where.not(id: current_user.id)
+  end
+
   private
   def user_params
     params.require(:user).permit(:name, :introduction, :profile_image)
